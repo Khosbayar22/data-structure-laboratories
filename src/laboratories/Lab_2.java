@@ -1,6 +1,13 @@
-/** Chain extended to include methods
-  * clear and add (at end).  */
 
+/*
+Name: Ariunbat Khosbayar
+Student Id: B200910056
+Student class: Software engineer(2)
+Project title: Laboratory 2
+Fundemental programming class: Chain
+Description: Extended methods toArray, Union, addRange, Intersection
+Date: Oct 2 2021
+*/ 
 package laboratories;
 
 import java.util.*; 
@@ -113,7 +120,7 @@ public class Lab_2 extends Chain{
 		 Boolean bye = false;
 		 Boolean isShow = true;
 		 
-		 Lab_2 arrayLinearList = new Lab_2();
+		 Lab_2 chainList = new Lab_2();
 		 Scanner scanner = new Scanner(System.in);
 		 System.out.println("\n-----------------------------");
 		 System.out.println(" Нэмж тодорхойлсон үйлдэлүүд");
@@ -128,27 +135,26 @@ public class Lab_2 extends Chain{
 		 System.out.println("-----------------------------\n");
 		 
 		 System.out.println("Хэдэн тоо оруулах вэ ?");
-		 int srcNum = arrayLinearList.readNumber(scanner);
+		 int srcNum = chainList.readNumber(scanner);
 		 if (srcNum != 0) { 
 			 System.out.println("Chain -нд оруулах "+ srcNum + " тоогоо оруулна уу.");
 		 }
 		 
 		 for (int i = 0; i < srcNum; i++)
 			 {
-				arrayLinearList.add(0, new Integer(arrayLinearList.readNumber(scanner)));
+			 chainList.add(0, new Integer(chainList.readNumber(scanner)));
 			 }
 		 // test size 
-		 if (arrayLinearList.isEmpty()) {
+		 if (chainList.isEmpty()) {
 			System.out.println("Баяртай :)");
 		 }
 		 else {
-			 System.out.println(arrayLinearList);
-			 System.out.println("Chain -ийн хэмжээ: " + arrayLinearList.size());
+			 System.out.println(chainList);
+			 System.out.println("Chain -ийн хэмжээ: " + chainList.size());
 			 flag = true;
 		 }
 		 
 		 if(flag) {
-//			 arrayLinearList.clearConsole();
 			 while(true) {
 				 try {
 					
@@ -182,23 +188,23 @@ public class Lab_2 extends Chain{
 					 	}
 						case 1: {
 							System.out.println("Массивруу хөрвүүлэх.");
-							System.out.println(arrayLinearList.toArray(arrayLinearList));
+							System.out.println(chainList.toArray(chainList));
 						     for(int i = 0; i < srcNum; i++) {
-						    	 System.out.println(arrayLinearList.toArray(arrayLinearList)[i]); 
+						    	 System.out.println(chainList.toArray(chainList)[i]); 
 						     }
 						     isShow = false;
 						     break;
 						}
 						case 2: {
 							System.out.println("Шинэ элемент нэмэх.");
-							arrayLinearList.addRange(arrayLinearList); 
+							chainList.addRange(chainList); 
 							isShow = false;
 							break;
 						}
 						case 3: {
 							System.out.println("Нэгдэл жагсаалтыг харах.");
 					 		System.out.println("Нэгдэл жагсаалт: " + 
-							arrayLinearList.removeDuplicateElements(arrayLinearList.union(arrayLinearList))
+					 		chainList.removeDuplicateElements(chainList.union(chainList))
 					 		);
 					 		System.out.println("\n\n");
 							isShow = false;
@@ -207,7 +213,7 @@ public class Lab_2 extends Chain{
 						case 4: {
 							System.out.println("Огтлолцол жагсаалтыг харах.");
 					 		System.out.println("Нэгдэл жагсаалт: " +
-							arrayLinearList.removeDuplicateElements(arrayLinearList.intersection(arrayLinearList))
+					 		chainList.removeDuplicateElements(chainList.intersection(chainList))
 					 		);
 					 		System.out.println("\n\n");
 							isShow = false;

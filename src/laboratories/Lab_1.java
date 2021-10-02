@@ -1,12 +1,12 @@
 
 /*
-Project title: Laboratory 1
-Fundemental programming class: ArrayLinearList
-Description: Expanded by max, min, avarage, sum, remove odd, sorting list 
-Date: Sep 6 2021
 Name: Ariunbat Khosbayar
 Student Id: B200910056
 Student class: Software engineer(2)
+Project title: Laboratory 1
+Fundemental programming class: ArrayLinearList
+Description: Extended methods max, min, avarage, sum, remove odd, sorting list 
+Date: Sep 6 2021
 */ 
 
 package laboratories;
