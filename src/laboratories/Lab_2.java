@@ -41,6 +41,7 @@ public class Lab_2 extends Chain{
 			System.out.println(e);
 		}
 		return removeElement;  
+		
 	}
 	
 	

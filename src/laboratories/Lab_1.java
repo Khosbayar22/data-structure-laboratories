@@ -154,6 +154,7 @@ public class Lab_1 extends ArrayLinearList {
 			 System.out.println(arrayLinearList);
 			 System.out.println("ArrayLinearList -ийн хэмжээ: " + arrayLinearList.size());
 			 flag = true;
+			 
 		 }
 		 
 		 if(flag) {
