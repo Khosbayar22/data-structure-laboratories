@@ -32,12 +32,13 @@ public class readFile {
 		}
 		return chainList;
 	}
-	public void addItem() {
+	public void addItem(String dbString) {
 		try {
-			RandomAccessFile randomAccessFile = new RandomAccessFile(file + "\\" + fileName, "rw");	
-			randomAccessFile.writeBytes("B200910011,CS204,10");
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+			    FileWriter myWriter = new FileWriter(file + "\\" + fileName, true);
+			    myWriter.write(dbString + "\n");
+			    myWriter.close();
+		    } catch (IOException e) {
+		      e.printStackTrace();
+		    }
 	}
 }
