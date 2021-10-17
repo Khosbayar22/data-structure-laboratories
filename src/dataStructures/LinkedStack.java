@@ -8,6 +8,8 @@ import java.util.EmptyStackException;
 public class LinkedStack implements Stack
 {
    // data members
+
+	private int n;
    protected ChainNode topNode;
 
    // constructors
@@ -17,8 +19,14 @@ public class LinkedStack implements Stack
        // the default initial value of topNode is null
    }
 
-   public LinkedStack()
-      {this(0);}
+   public LinkedStack() {
+	   this(0);
+	   n = 0;
+   }
+   
+   public int size() {
+       return n;
+   }
 
    // methods
    /** @return true iff stack is empty */
@@ -37,7 +45,10 @@ public class LinkedStack implements Stack
 
    /** add theElement to the top of the stack */
    public void push(Object theElement)
-      {topNode = new ChainNode(theElement, topNode);}
+      {
+	   topNode = new ChainNode(theElement, topNode);
+	   n++;
+	   }
 
    /** remove top element of stack and return it
      * @throws EmptyStackException when the stack is empty */
@@ -47,6 +58,7 @@ public class LinkedStack implements Stack
          throw new EmptyStackException();
       Object topElement = topNode.element;
       topNode = topNode.next;
+      n--;
       return topElement;
    }
    

@@ -48,8 +48,46 @@ public class Student {
 		return sum/len;
 	}
 	
-	public float pointToGP(int point) {
-		return 0;
+	public float pointToGP(float point) {
+		return (point * 4) / 100;
+	}
+	
+
+	public String sortByCourseId(Chain courseDatabase) {
+		Chain examChain = examDatabase;
+		int cnt = 0;  
+		String content = ""; 
+		content += String.format("No | Хичээлийн дугаар | Оюутаны код | Авсан оноо\n"); 
+		for(int j = 0; j < courseDatabase.size(); j += 3) {
+			content += courseDatabase.get(j) + " - " + courseDatabase.get(j + 1) + "\n" ; 
+			for(int i = 0; i < examChain.size(); i += 3 ) {
+				if (courseDatabase.get(j).equals(examChain.get(i))) {
+					cnt += 1; 
+					content += String.format("%d  | %s | %s | %s\n", cnt, examChain.get(i + 1), examChain.get(i), examChain.get(i + 2));
+				}
+			}
+		}
+		return content;
+	}
+	
+
+	public String sortByStudentId(Chain professionDatabase) {
+		Chain examChain = examDatabase;
+		int cnt = 0;  
+		String content = ""; 
+		content += String.format("No | Хичээлийн дугаар | Оюутаны код | Авсан оноо\n"); 
+		for(int j = 0; j < professionDatabase.size(); j += 2) {
+			content += professionDatabase.get(j + 1) + "\n" ; 
+			for(int i = 0; i < examChain.size(); i += 3 ) {
+				int studentMajorId = Integer.parseInt(examChain.get(i + 1).toString().substring(5, 8));
+				int totalStudentMajorId = Integer.parseInt(professionDatabase.get(j).toString());
+				if (studentMajorId == totalStudentMajorId) {
+					cnt += 1; 
+					content += String.format("%d  | %s | %s | %s\n", cnt, examChain.get(i + 1), examChain.get(i), examChain.get(i + 2));
+				}
+			}
+		}
+		return content;
 	}
 	
 	public String allExamData() {
