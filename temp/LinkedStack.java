@@ -1,0 +1,102 @@
+
+/** a linked stack class */
+
+package dataStructures;
+
+import java.util.EmptyStackException;
+
+public class LinkedStack implements Stack
+{
+   // data members
+
+	private int n;
+   protected ChainNode topNode;
+
+   // constructors
+   /** create an empty stack */
+   public LinkedStack(int initialCapacity)
+   {
+       // the default initial value of topNode is null
+   }
+
+   public LinkedStack() {
+	   this(0);
+	   n = 0;
+   }
+   
+   public int size() {
+       return n;
+   }
+
+   // methods
+   /** @return true iff stack is empty */
+   public boolean empty()
+      {return topNode == null;}
+
+
+   /** @return top element of stack 
+     * @throws EmptyStackException when the stack is empty */
+   public Object peek()
+   {
+      if (empty())
+         throw new EmptyStackException();
+      return topNode.element;
+   }
+
+   /** add theElement to the top of the stack */
+   public void push(Object theElement)
+      {
+	   topNode = new ChainNode(theElement, topNode);
+	   n++;
+	   }
+
+   /** remove top element of stack and return it
+     * @throws EmptyStackException when the stack is empty */
+   public Object pop()
+   {
+      if (empty())
+         throw new EmptyStackException();
+      Object topElement = topNode.element;
+      topNode = topNode.next;
+      n--;
+      return topElement;
+   }
+   
+
+	public String toString() {
+		StringBuffer s = new StringBuffer("["); 
+		ChainNode currentNode = topNode;
+		while(currentNode != null)
+	      {
+	         if (currentNode.element == null)
+	            s.append("null, ");
+	         else
+	            s.append(currentNode.element.toString() + ", ");
+	         currentNode = currentNode.next;
+	      }
+	      if (n > 0)
+	         s.delete(s.length() - 2, s.length()); 
+	      s.append("]");
+	   
+	      return new String(s);
+	}
+   
+   /** test program */
+   public static void main(String [] args)
+   {  
+      LinkedStack s = new LinkedStack();
+      // add a few elements
+      s.push(new Integer(1));
+      s.push(new Integer(2));
+      s.push(new Integer(3));
+      s.push(new Integer(4));
+
+
+      // delete all elements
+      while (!s.empty())
+      {
+         System.out.println("Top element is " + s.peek());
+         System.out.println("Removed the element " + s.pop());
+      }
+   }  
+}
