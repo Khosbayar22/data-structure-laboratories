@@ -1,0 +1,6 @@
+CS204,Ugugdliin butets,3.0
+CS203,Engineeriin ediin zasag,3.0
+CS202,Biyiin tamir,3.0
+CS201,Mongoliin tuuh,3.0
+CS200,Computeriin suljee,3.0
+CS205,Web Design,3.0

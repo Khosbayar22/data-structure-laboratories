@@ -31,7 +31,7 @@ public class Lab_2 extends Chain{
 			for (int i = 0; i < chain.size(); i++) {
 	            set.add(Integer.parseInt(chain.get(i).toString()));
 			}
-	        Iterator value = set.iterator();
+	        Iterator<Integer> value = set.iterator();
 	        int count = 0; 
 			while(value.hasNext()) {
 				removeElement.add(count, value.next());
@@ -50,6 +50,7 @@ public class Lab_2 extends Chain{
 		int totalNum = scanner.nextInt();
 		chain.add(chain.size(), totalNum);
 		System.out.println(chain.toString());
+		scanner.close();
 	}
 	
 	public Chain union(Chain chain) {
@@ -116,6 +117,7 @@ public class Lab_2 extends Chain{
 	    }
    }
 	
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		 Boolean flag = false;
 		 Boolean bye = false;

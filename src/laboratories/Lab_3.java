@@ -1,5 +1,6 @@
 package laboratories;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import dataStructures.ArrayLinearList;
@@ -7,108 +8,148 @@ import dataStructures.LinkedStack;
 
 public class Lab_3 extends LinkedStack {
 	
+	
 	public LinkedStack rand() {
-		LinkedStack MainStack = new LinkedStack();
 		LinkedStack newStack = new LinkedStack();
-		LinkedStack tempStack = new LinkedStack();
-	    Object[] arrayStack = this.toArray();
-	    for (int i = 0; i < this.size(); i++) {
-	        MainStack.push(arrayStack[i]);
-	    }
-	    while (!MainStack.empty()) {
-	        int r = (int)(Math.random() * MainStack.size());
-	        for (int i = 0; i <= r; i++) {
-	            if (r == i) {
-	                newStack.push(MainStack.pop());
-	                break;
-	            } else {
-	                tempStack.push(MainStack.pop());
-	            }
-	        }
-	        for (int k = 0; k < tempStack.size(); k++) {
-	            MainStack.push(tempStack.pop());
-	        }
+        Random getRandom = new Random();
+		ArrayLinearList arrayLinearList = new ArrayLinearList();
+		int len = this.size();
+		for(int i = 0; i < len; i++) {
+			arrayLinearList.add(i, this.pop());
+		}
+		System.out.println(arrayLinearList);
+	    while (!arrayLinearList.isEmpty()) {
+	        int randomNum = getRandom.nextInt(arrayLinearList.size());
+	        newStack.push(arrayLinearList.get(randomNum));
+	        arrayLinearList.remove(randomNum);
 	    }
 	    return newStack;
 	}
 	
 	public LinkedStack addRange(Object[] elements) {
-	    Scanner sc = new Scanner(System.in); 
+	    Scanner scanner = new Scanner(System.in); 
 	    for (int i = 0; i < elements.length; i++) {
-	        char t = sc.next().charAt(0);
-	        this.push(t);
+	        int newElement = scanner.nextInt();
+	        this.push(newElement);
 	    }
-	    sc.close(); 
+	    scanner.close(); 
 	    return this;
 	}
 	
-	public boolean exists(Object element) {
-		LinkedStack tempStack = new LinkedStack();
-        Object[] arrayStack = this.toArray();
-        for (int i = 0; i < this.size(); i++) {
-            tempStack.push(arrayStack[i]);
-        }
+	public boolean exists(Object[] element) {
+		System.out.println("==================================================================");
         for (int i = 0; i <= this.size(); i++) {
-            if (tempStack.peek().equals(element))
-                return true;
-            else
-                tempStack.pop();
+        	for(int j = 0; j < element.length; j++) {
+        		if (this.peek() == element[j])
+                    return true;
+        	}
+        	this.pop();
         }
        return false;
     }
 	
 	public LinkedStack unique() {
-		LinkedStack tempStack = new LinkedStack();
+        int len = this.size();
 	    try {
-	        Object[] arrayStack = this.toArray();
-	        for (int i = 0; i < this.size(); i++) {
-	            tempStack.push(arrayStack[i]);
+	        ArrayLinearList ArrayLinearList = new ArrayLinearList();
+	        for (int i = 0; i < len; i++) {
+	        	ArrayLinearList.add(0, this.pop());
 	        }
-	        ArrayLinearList linearStack = new ArrayLinearList();
-	        int e = tempStack.size();
-	        for (int i = 0; i < e; i++) {
-	            linearStack.add(0, tempStack.pop());
-	        }
-	        for (int i = 0; i < linearStack.size(); i++) {
-	            for (int j = i + 1; j < linearStack.size(); j++) {
-	                if (linearStack.get(i).equals(linearStack.get(j))) {
-	                    linearStack.remove(i);
+	        for (int i = 0; i < ArrayLinearList.size(); i++) {
+	            for (int j = i + 1; j < ArrayLinearList.size(); j++) {
+	                if (ArrayLinearList.get(i).equals(ArrayLinearList.get(j))) {
+	                	ArrayLinearList.remove(i);
 	                    i--;
 	                    break;
 	                }
 	            }
 	        }
-	        for (int i = 0; i < linearStack.size(); i++) {
-	            tempStack.push(linearStack.get(i));
+	        for (int i = 0; i < ArrayLinearList.size(); i++) {
+	            this.push(ArrayLinearList.get(i));
 	        }
 	    } catch (Exception e) {
-	        System.out.println("Error");
+	        System.out.println("Ямар ч байсан алдаа гарсан байна. Дахин оролдож үзнэ үү.");
 	    }
-	    return tempStack;
+	    return this;
 	}
 	
 	public Object[] toArray() {
-        Object[] arrayStack = new Object[this.size()];
-        LinkedStack tempStack = new LinkedStack();
+        Object[] tempArray = new Object[this.size()];
         int i = 0;
         while (!empty()) {
-            arrayStack[i] = this.peek();
-            tempStack.push(this.pop());
+        	tempArray[i] = this.peek();
+        	System.out.println(tempArray[i]);
+        	this.pop();
             i++;
         }
-        while (!tempStack.empty()) {
-            this.push(tempStack.pop());
-        }
-        return arrayStack;
+        return tempArray;
 	}
 	
 	public static void main(String[] args) {
 		Lab_3 mainStack = new Lab_3();
-		mainStack.push('A');
-		mainStack.push('B');
-		mainStack.push('C');
-		mainStack.push('D');
-		mainStack.push('E');
-
+		Scanner scanner = new Scanner(System.in); 
+		System.out.println("Системд оруулах тоогоо оруулна уу ?");
+		int num = scanner.nextInt(); 
+		for(int i = 0; i < num; i++) {
+			mainStack.push(scanner.nextInt());
+		}
+		System.out.println("1-5 ын хооронд тоогоо оруулна уу ?");
+		System.out.println("1. Rand - Санамсаргүйгээр элементүүдийг холих.");
+		System.out.println("2. Unique - Давхардлыг арилгаж буцаах.");
+		System.out.println("3. AddRange - Элемент нэмэх.");
+		System.out.println("4. ToArray - Array хөрвүүлэлт хийх.");
+		System.out.println("5. Exists - Ижил элемент байгаа эсэхийг шалгах.");
+		
+		try {
+			int selectMethod = scanner.nextInt();
+			switch(selectMethod) {
+				case 1: {
+					System.out.println("1. Rand - Санамсаргүйгээр элементүүдийг холих.");
+					System.out.println(mainStack.rand().toString());
+					break;
+				}
+				case 2: {
+					System.out.println("2. Unique - Давхардлыг арилгаж буцаах.");
+					System.out.println(mainStack.unique().toString());
+					break;
+				}
+				case 3: {
+					System.out.println("3. AddRange - Элемент нэмэх.");
+					System.out.println("Оруулах элементийн уртыг оруулах ?");
+					int addNumLen = scanner.nextInt();
+					Object[] elements = new Object[addNumLen];
+					System.out.println(mainStack.addRange(elements).toString());
+					break;
+				}
+				case 4: {
+					System.out.println("4. ToArray - Array хөрвүүлэлт хийх.");
+					mainStack.toArray();
+					break; 
+				}
+				case 5: {
+					System.out.println("5. Exists - Ижил элемент байгаа эсэхийг шалгах.");
+					System.out.println("Харьцуулах элементийн уртыг оруулах ?");
+					int addNumLen = scanner.nextInt();
+					Object[] elements = new Object[addNumLen];
+					for(int i = 0; i < addNumLen; i++) {
+						elements[i] = scanner.nextInt();
+					}
+					if(mainStack.exists(elements)) {
+						System.out.println("Элемент давхцаж байна."); 
+					} else {
+						System.out.println("Элемент давхцахгүй байна."); 
+					}
+					break; 
+				}
+				default: {
+					System.out.println("1-5 ын хооронд оруулна уу !");
+				}
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			scanner.close();
+		}
+		scanner.close();
 	}
 }
