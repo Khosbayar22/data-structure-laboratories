@@ -14,31 +14,36 @@ public class Lab_4 extends HashTable {
     }
 
     public void delete(Object theKey) {
-        int i = search(theKey);
-        if (table[i] != null) {
-            if (table[i].key.equals(theKey)) {
-                table[i] = null;
-            }
-        }
+    	try {
+            int i = search(theKey);
+            table[i] = null;
+            
+		} catch (Exception e) {
+			System.out.println("Not found.");
+		}
     }
 
     public Object updateElement(Object theKey, Object newElement) {
         int i = search(theKey);
-        if (table[i] != null) {
-            if (table[i].key.equals(theKey))
-                table[i].element = newElement;
-        }
+        try {
+            table[i].element = newElement;
+		} catch (Exception e) {
+			System.out.println("Not found.");
+		}
         return table[i];
     }
 
     public Object updateKey(Object theKey, Object theNewKey) {
         int i = search(theKey);
-        if (table[i] != null) {
-            if (table[i].key.equals(theKey)) {
-                this.put(theNewKey, table[i].element);
-                this.delete(theKey);
-            }
-        }
+        
+    	try {
+            this.delete(theKey);
+            this.put(theNewKey, table[i].element);
+            
+		} catch (Exception e) {
+			System.out.println("Not found.");
+		}
+        
         return table[i];
     }
 
@@ -89,7 +94,7 @@ public class Lab_4 extends HashTable {
                         System.out.println("1. Нэмэх");
                         int newKey = scanner.nextInt();
                         int newElement = scanner.nextInt();
-//                        hashtable.delete(new Integer(newKey));
+                        hashtable.delete(new Integer(newKey));
                         hashtable.put(new Integer(newKey), new Integer(newElement));
                         hashtable.output();
                         break;
