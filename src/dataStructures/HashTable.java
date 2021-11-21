@@ -10,8 +10,8 @@ public class HashTable
    protected static class HashEntry
    {
       // data members
-      protected Object key;
-      protected Object element;
+      public Object key;
+      public Object element;
 
       // constructors
       private HashEntry() {}
@@ -50,15 +50,17 @@ public class HashTable
      * @return location of matching element if found, otherwise return
      * location where an element with key theKey may be inserted
      * provided the hash table is not full */
-   private int search(Object theKey)
+   public int search(Object theKey)
    {
       int i = Math.abs(theKey.hashCode()) % divisor;  // home bucket
+      // home bucket
       int j = i;    // start at home bucket
       do
       {
          if (table[j] == null || table[j].key.equals(theKey))
             return j;
          j = (j + 1) % divisor;  // next bucket
+         System.out.println(j);
       } while (j != i);          // returned to home bucket?
    
       return j;  // table full
@@ -114,9 +116,11 @@ public class HashTable
    {
       for (int i = 0; i < divisor; i++)
          if (table[i] == null)
-            System.out.println("null");
+            System.out.println(i + ". null");
          else
-            System.out.println(table[i].element);
+            System.out.println(i + ". " + table[i].element.toString());
+//    	  if (table[i] != null)
+//            System.out.println(i + ". " + table[i].element.toString());
    }
    
    /** test method */

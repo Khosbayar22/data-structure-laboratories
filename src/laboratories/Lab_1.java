@@ -113,6 +113,10 @@ public class Lab_1 extends ArrayLinearList {
 //		    }
 		}
 	   
+	   public int length() {
+		   return size;
+	   }
+	   
 	   public static void main(String [] args)
 	 {
 		 Boolean flag = false;

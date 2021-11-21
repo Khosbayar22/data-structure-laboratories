@@ -1,116 +1,142 @@
 package laboratories;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
-public class Lab_4 {
+import dataStructures.ArrayLinearList;
+import dataStructures.HashTable;
 
-    private FastScanner in;
-    private PrintWriter out;
-    private List<String> elems;
-    private int bucketCount;
-    private int prime = 1000000007;
-    private int multiplier = 263;
+public class Lab_4 extends HashTable {
 
-    public static void main(String[] args) throws IOException {
-        new Lab_4().processQueries();
+    public Lab_4(int theDivisor) {
+        super(theDivisor);
     }
 
-    private int hashFunc(String s) {
-        long hash = 0;
-        for (int i = s.length() - 1; i >= 0; --i)
-            hash = (hash * multiplier + s.charAt(i)) % prime;
-        return (int)hash % bucketCount;
-    }
-
-    private Query readQuery() throws IOException {
-        String type = in.next();
-        if (!type.equals("check")) {
-            String s = in.next();
-            return new Query(type, s);
-        } else {
-            int ind = in.nextInt();
-            return new Query(type, ind);
-        }
-    }
-
-    private void writeSearchResult(boolean wasFound) {
-        out.println(wasFound ? "yes" : "no");
-    }
-
-    private void processQuery(Query query) {
-        switch (query.type) {
-            case "add":
-                if (!elems.contains(query.s))
-                    elems.add(0, query.s);
-                break;
-            case "del":
-                if (elems.contains(query.s))
-                    elems.remove(query.s);
-                break;
-            case "find":
-                writeSearchResult(elems.contains(query.s));
-                break;
-            case "check":
-                for (String cur : elems)
-                    if (hashFunc(cur) == query.ind)
-                        out.print(cur + " ");
-                out.println();
-                break;
-            default:
-                throw new RuntimeException("Unknown query: " + query.type);
-        }
-    }
-
-    public void processQueries() throws IOException {
-        elems = new ArrayList<>();
-        in = new FastScanner();
-        out = new PrintWriter(new BufferedOutputStream(System.out));
-        bucketCount = in.nextInt();
-        int queryCount = in.nextInt();
-        for (int i = 0; i < queryCount; ++i) {
-            processQuery(readQuery());
-        }
-        out.close();
-    }
-
-    static class Query {
-        String type;
-        String s;
-        int ind;
-
-        public Query(String type, String s) {
-            this.type = type;
-            this.s = s;
-        }
-
-        public Query(String type, int ind) {
-            this.type = type;
-            this.ind = ind;
-        }
-    }
-
-    static class FastScanner {
-        private BufferedReader reader;
-        private StringTokenizer tokenizer;
-
-        public FastScanner() {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            tokenizer = null;
-        }
-
-        public String next() throws IOException {
-            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+    public void delete(Object theKey) {
+        int i = search(theKey);
+        if (table[i] != null) {
+            if (table[i].key.equals(theKey)) {
+                table[i] = null;
             }
-            return tokenizer.nextToken();
+        }
+    }
+
+    public Object updateElement(Object theKey, Object newElement) {
+        int i = search(theKey);
+        if (table[i] != null) {
+            if (table[i].key.equals(theKey))
+                table[i].element = newElement;
+        }
+        return table[i];
+    }
+
+    public Object updateKey(Object theKey, Object theNewKey) {
+        int i = search(theKey);
+        if (table[i] != null) {
+            if (table[i].key.equals(theKey)) {
+                this.put(theNewKey, table[i].element);
+                this.delete(theKey);
+            }
+        }
+        return table[i];
+    }
+
+
+    public static void main(String[] args) {
+        Lab_4 hashtable = new Lab_4(11);
+        Lab_1 arrayLinearList = new Lab_1();
+        
+        Scanner scanner = new Scanner(System.in);
+        try {
+            File myObj = new File("C:/Eclipse Projects/java_labs/src/laboratories_testing_value/Lab_4.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                arrayLinearList.add(0, new Integer(myReader.nextInt()));
+            }
+            myReader.close();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
 
-        public int nextInt() throws IOException {
-            return Integer.parseInt(next());
+        for (int i = 0; i < arrayLinearList.length(); i+=2) {
+            int hashKey = (int) arrayLinearList.get(i);
+            int hashElement = (int) arrayLinearList.get(i + 1);
+            try {
+                hashtable.put(new Integer(hashKey), new Integer(hashElement));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
+        System.out.println("==================================================================");
+
+        System.out.println("1-5 ын хооронд тоогоо оруулна уу ?");
+        System.out.println("1. Нэмэх");
+        System.out.println("2. Хасах");
+        System.out.println("3. Хайх");
+        System.out.println("4. Өөрчлөх [element]");
+        System.out.println("5. Өөрчлөх [key]");
+
+        System.out.println("==================================================================");
+
+        try {
+            int selectMethod = scanner.nextInt();
+            switch (selectMethod) {
+                case 1:
+                    {
+                        System.out.println("1. Нэмэх");
+                        int newKey = scanner.nextInt();
+                        int newElement = scanner.nextInt();
+//                        hashtable.delete(new Integer(newKey));
+                        hashtable.put(new Integer(newKey), new Integer(newElement));
+                        hashtable.output();
+                        break;
+                    }
+                case 2:
+                    {
+                        System.out.println("2. Хасах");
+                        int deleteKey = scanner.nextInt();
+                        hashtable.delete(new Integer(deleteKey));
+                        hashtable.output();
+                        break;
+                    }
+                case 3:
+                    {
+                        System.out.println("3. Хайх");
+                        int searchKey = scanner.nextInt();
+                        System.out.println(hashtable.search(new Integer(searchKey)));
+                        break;
+                    }
+                case 4:
+                    {
+                        System.out.println("4. Element өөрчлөх");
+                        int newKey = scanner.nextInt();
+                        int newElement = scanner.nextInt();
+                        hashtable.updateElement(new Integer(newKey), new Integer(newElement));
+                        hashtable.output();
+                        break;
+                    }
+                case 5:
+                    {
+                        System.out.println("5. Key өөрчлөх");
+                        int newKey = scanner.nextInt();
+                        int newElement = scanner.nextInt();
+                        hashtable.updateKey(new Integer(newKey), new Integer(newElement));
+                        hashtable.output();
+                        break;
+                    }
+                default:
+                    {
+                        System.out.println("1-5 ын хооронд оруулна уу !");
+                    }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            scanner.close();
+        }
+
+        scanner.close();
     }
 }
