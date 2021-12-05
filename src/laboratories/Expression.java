@@ -1,16 +1,14 @@
 package laboratories;
 
+
 import java.util.Scanner;
 
-import dataStructures.ArrayStack;
 import dataStructures.BinaryTreeNode;
 import dataStructures.LinkedBinaryTree;
-/*
-The source code is based on the Batsukh code.
-About him: https://github.com/Pertpert
-I will add some calculate function. Idea: Find parent, find child, find leaving, find removing, swap, remove and text file reader.
-*/
-public class Lab_5 extends LinkedBinaryTree{
+import dataStructures.ArrayStack;
+
+public class Expression extends LinkedBinaryTree{
+	
 	private int isOperation(char temp) 
     { 
         switch (temp) 
@@ -115,6 +113,10 @@ public class Lab_5 extends LinkedBinaryTree{
 		
 
 	public LinkedBinaryTree buildTree(String expression, int type) {
+		
+		//type 1: infix
+		//type 2: prefix
+		//type 3: postfix
 		switch(type) {
 			case 1:
 				expression = infixToPostfix(expression);
@@ -190,9 +192,8 @@ public class Lab_5 extends LinkedBinaryTree{
 		return result;
 	}
 	
-	
 	public static void main(String[] args) {
-		Lab_5 build = new Lab_5();
+		Expression build = new Expression();
 		LinkedBinaryTree root = new LinkedBinaryTree();
 		Scanner sc = new Scanner(System.in);
 		
@@ -200,63 +201,64 @@ public class Lab_5 extends LinkedBinaryTree{
 		
 		while(!exit) {
 			System.out.print("\n"
-					+ "1: Шинэ мод байгуулах\n"
-					+ "2: Илэрхийллийн модоор түүнийг бодох\n"
-					+ "3: Хаалтуудаар бүрэн хэлбэржсэн infix хэлбэрийг хэвлэх\n"
-					+ "4: Модны prefix хэлбэрийг харах\n"
-					+ "5: Модны postfix хэлбэрийг харах\n"
-					+ "6: Гарах"
-					+ "\n");
+					+ ">> 1: Шинэ мод байгуулах\n"
+					+ ">> 2: Илэрхийллийн модоор түүнийг бодох\n"
+					+ ">> 3: Хаалтуудаар бүрэн хэлбэржсэн infix хэлбэрийг хэвлэх\n"
+					+ ">> 4: Модны prefix хэлбэрийг харах\n"
+					+ ">> 5: Модны postfix хэлбэрийг харах\n"
+					+ ">> 6: Гарах"
+					+ "\n<< ");
 			
 			int n = sc.nextInt();
 			
 			switch(n) {
 				case 1:{
-					System.out.print("\nТөрөлөө оруулна уу:\n"
-							+ "1: Infix\n"
-							+ "2: Prefix\n"
-							+ "3: Postfix\n\t");
+					System.out.print("\n\t>> Төрөлөө оруулна уу:\n"
+							+ "\t>> 1: Infix\n"
+							+ "\t>> 2: Prefix\n"
+							+ "\t>> 3: Postfix\n\t<< ");
 					int type = sc.nextInt();
 					
-					System.out.print("Илэрхийллээ оруулна уу - ");
+					System.out.print("\n\t>> Илэрхийллээ оруулна уу Зайгүй!!\n\t<< ");
 					String expression = sc.next();
 					
 					root = build.buildTree(expression, type);	
-					System.out.print("postorder: ");
+					System.out.print("\t>> postorder: ");
 					root.postOrderOutput();
-					System.out.print("\npreorder: ");
+					System.out.print("\n\t>> preorder: ");
 					root.preOrderOutput();
-					System.out.print("\ninorder: ");
+					System.out.print("\n\t>> inorder: ");
 					root.inOrderOutput();
-					System.out.print("\nlevelorder: ");
+					System.out.print("\n\t>> levelorder: ");
 					root.levelOrderOutput();
-					System.out.println("\nМод байгууллагдлаа");
+					System.out.println("\n\t>> Мод байгууллагдлаа");
 					break;
 				}
 				case 2:
-					System.out.println("Result: " + build.calculate(root.rootBinaryTreeNode()));
+					System.out.println("\t>> Result: " + build.calculate(root.rootBinaryTreeNode()));
 					break;
 				case 3:
-					System.out.println("infix: " + build.infix(root.rootBinaryTreeNode()));
+					System.out.println("\t>> infix: " + build.infix(root.rootBinaryTreeNode()));
 					break;
 				case 4:
-					System.out.print("\nprefix: ");
+					System.out.print("\n\t>> prefix: ");
 					root.preOrderOutput();
 					System.out.println();
 					break;
 				case 5:
-					System.out.print("postfix: ");
+					System.out.print("\t>> postfix: ");
 					root.postOrderOutput();
 					break;
 				case 6:
 					exit = true;
 					break;
 				default:
-					System.out.println("\nБуруу утга оруулсан байна!!");
+					System.out.println("\n\t>> Буруу утга оруулсан байна!!");
 					break;
 			}
 		}
 		
 		sc.close();
 	}
+
 }

@@ -219,6 +219,14 @@ public class LinkedBinaryTree implements BinaryTree
       if (hl > hr) return ++hl;
       else return ++hr;
    }
+   
+//   public BinaryTreenode rootBinaryTreeNode(){
+//	   return root;
+//   }
+
+	public BinaryTreeNode rootBinaryTreeNode() {
+		return root;
+	}
 
    /** test program */
    public static void main(String [] args)
@@ -252,4 +260,5 @@ public class LinkedBinaryTree implements BinaryTree
 
       System.out.println("Height = " + y.height());
    }
+
 }
