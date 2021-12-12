@@ -60,7 +60,7 @@ public class HashTable
          if (table[j] == null || table[j].key.equals(theKey))
             return j;
          j = (j + 1) % divisor;  // next bucket
-         System.out.println(j);
+//         System.out.println(j);
       } while (j != i);          // returned to home bucket?
    
       return j;  // table full
@@ -115,10 +115,11 @@ public class HashTable
    public void output()
    {
       for (int i = 0; i < divisor; i++)
-         if (table[i] == null)
-            System.out.println(i + ". null");
+         if (table[i] == null) {
+//            System.out.println(i + ". null");
+         }
          else
-            System.out.println(i + ". " + table[i].element.toString());
+            System.out.println(table[i].key.toString() + ". " + table[i].element.toString());
 //    	  if (table[i] != null)
 //            System.out.println(i + ". " + table[i].element.toString());
    }

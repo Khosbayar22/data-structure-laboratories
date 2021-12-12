@@ -49,15 +49,16 @@ public class Lab_4 extends HashTable {
 
 
     public static void main(String[] args) {
-        Lab_4 hashtable = new Lab_4(11);
+        Lab_4 hashtable = new Lab_4(1000);
         Lab_1 arrayLinearList = new Lab_1();
+        boolean exit = false;
         
         Scanner scanner = new Scanner(System.in);
         try {
             File myObj = new File("C:/Eclipse Projects/java_labs/src/laboratories_testing_value/Lab_4.txt");
             Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                arrayLinearList.add(0, new Integer(myReader.nextInt()));
+            while (myReader.hasNext()) {
+                arrayLinearList.add(0, myReader.next());
             }
             myReader.close();
             
@@ -65,83 +66,91 @@ public class Lab_4 extends HashTable {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
         for (int i = 0; i < arrayLinearList.length(); i+=2) {
-            int hashKey = (int) arrayLinearList.get(i);
-            int hashElement = (int) arrayLinearList.get(i + 1);
+            Object hashKey = arrayLinearList.get(i + 1);
+            Object hashElement = arrayLinearList.get(i);
             try {
-                hashtable.put(new Integer(hashKey), new Integer(hashElement));
+                hashtable.put(hashKey, hashElement);
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
-        System.out.println("==================================================================");
-
-        System.out.println("1-5 ын хооронд тоогоо оруулна уу ?");
-        System.out.println("1. Нэмэх");
-        System.out.println("2. Хасах");
-        System.out.println("3. Хайх");
-        System.out.println("4. Өөрчлөх [element]");
-        System.out.println("5. Өөрчлөх [key]");
-
-        System.out.println("==================================================================");
-
-        try {
-            int selectMethod = scanner.nextInt();
-            switch (selectMethod) {
-                case 1:
-                    {
-                        System.out.println("1. Нэмэх");
-                        int newKey = scanner.nextInt();
-                        int newElement = scanner.nextInt();
-                        hashtable.delete(new Integer(newKey));
-                        hashtable.put(new Integer(newKey), new Integer(newElement));
-                        hashtable.output();
-                        break;
-                    }
-                case 2:
-                    {
-                        System.out.println("2. Хасах");
-                        int deleteKey = scanner.nextInt();
-                        hashtable.delete(new Integer(deleteKey));
-                        hashtable.output();
-                        break;
-                    }
-                case 3:
-                    {
-                        System.out.println("3. Хайх");
-                        int searchKey = scanner.nextInt();
-                        System.out.println(hashtable.search(new Integer(searchKey)));
-                        break;
-                    }
-                case 4:
-                    {
-                        System.out.println("4. Element өөрчлөх");
-                        int newKey = scanner.nextInt();
-                        int newElement = scanner.nextInt();
-                        hashtable.updateElement(new Integer(newKey), new Integer(newElement));
-                        hashtable.output();
-                        break;
-                    }
-                case 5:
-                    {
-                        System.out.println("5. Key өөрчлөх");
-                        int newKey = scanner.nextInt();
-                        int newElement = scanner.nextInt();
-                        hashtable.updateKey(new Integer(newKey), new Integer(newElement));
-                        hashtable.output();
-                        break;
-                    }
-                default:
-                    {
-                        System.out.println("1-5 ын хооронд оруулна уу !");
-                    }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-            scanner.close();
+        
+        while(!exit) {
+	        System.out.println("==================================================================");
+	
+	        System.out.println("1-5 ын хооронд тоогоо оруулна уу ?");
+	        System.out.println("1. Нэмэх");
+	        System.out.println("2. Хасах");
+	        System.out.println("3. Хайх");
+	        System.out.println("4. Өөрчлөх [element]");
+	        System.out.println("5. Өөрчлөх [key]");
+	
+	        System.out.println("==================================================================");
+	
+	        System.out.println("Хүснэгтэнд байгаа элементийн тоо: " + hashtable.size());
+	//        hashtable.output();
+	        try {
+	            int selectMethod = scanner.nextInt();
+	            switch (selectMethod) {
+	                case 1:
+	                    {
+	                        System.out.println("1. Нэмэх");
+	                    	try {
+		                        Object newKey = scanner.next();
+		                        Object newElement = scanner.next();
+		                        hashtable.delete(newKey);
+		                        hashtable.put(newKey, newElement);
+		                        hashtable.output();
+	                    	} catch(Exception e) {
+	                    		System.out.println("Found error");
+	                    	}
+	                        break;
+	                    }
+	                case 2:
+	                    {
+	                        System.out.println("2. Хасах");
+	                        Object deleteKey = scanner.nextLine();
+	                        hashtable.delete(deleteKey);
+	                        hashtable.output();
+	                        break;
+	                    }
+	                case 3:
+	                    {
+	                        System.out.println("3. Хайх");
+	                        Object searchKey = scanner.nextLine();
+	                        System.out.println(hashtable.search(searchKey));
+	                        break;
+	                    }
+	                case 4:
+	                    {
+	                        System.out.println("4. Element өөрчлөх");
+	                        int newKey = scanner.nextInt();
+	                        int newElement = scanner.nextInt();
+	                        hashtable.updateElement(new Integer(newKey), new Integer(newElement));
+	                        hashtable.output();
+	                        break;
+	                    }
+	                case 5:
+	                    {
+	                        System.out.println("5. Key өөрчлөх");
+	                        int newKey = scanner.nextInt();
+	                        int newElement = scanner.nextInt();
+	                        hashtable.updateKey(new Integer(newKey), new Integer(newElement));
+	                        hashtable.output();
+	                        break;
+	                    }
+	                default:
+	                    {
+	                        System.out.println("1-5 ын хооронд оруулна уу !");
+	                    }
+	            }
+	        } catch (Exception e) {
+	            System.out.println(e);
+	            scanner.close();
+	        	break;
+	        }
         }
-
         scanner.close();
     }
 }
